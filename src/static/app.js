@@ -810,11 +810,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Share an activity using the Web Share API or clipboard fallback
   async function shareActivity(name, description) {
-    const url =
-      window.location.origin +
-      window.location.pathname +
-      "?activity=" +
-      encodeURIComponent(name);
+    const shareUrl = new URL(window.location.href);
+    shareUrl.search = "";
+    shareUrl.searchParams.set("activity", name);
+    const url = shareUrl.toString();
     const shareData = {
       title: name,
       text: `Check out this activity at Mergington High School: ${name} – ${description}`,
